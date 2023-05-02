@@ -66,7 +66,23 @@ public class Calculadora implements ActionListener{
 		panel = new JPanel();
 		panel.setBounds(50,100,345,365);
 		panel.setLayout(new GridLayout(4,4,10,10)); //linhas, colunas, espaçamento, espaçamento.
-		panel.setBackground(Color.gray);
+		//panel.setBackground(Color.gray); //para visualizar onde está esse layout.
+		panel.add(botoesNumericos[7]);
+		panel.add(botoesNumericos[8]);
+		panel.add(botoesNumericos[9]);
+		panel.add(botaoDivisao);
+		panel.add(botoesNumericos[4]);
+		panel.add(botoesNumericos[5]);
+		panel.add(botoesNumericos[6]);
+		panel.add(botaoMultiplicacao);
+		panel.add(botoesNumericos[1]);
+		panel.add(botoesNumericos[2]);
+		panel.add(botoesNumericos[3]);
+		panel.add(botaoSubtracao);
+		panel.add(botaoDecimal);
+		panel.add(botoesNumericos[0]);
+		panel.add(botaoIgual);
+		panel.add(botaoSoma);
 		
 		frame.add(panel);
 		frame.add(botaoDelete);
