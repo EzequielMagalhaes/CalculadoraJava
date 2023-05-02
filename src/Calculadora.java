@@ -21,11 +21,11 @@ public class Calculadora implements ActionListener{
 	Calculadora(){ // Construtor.
 		frame = new JFrame("Calculadora");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(450,600); //420, 550
+		frame.setSize(450,600); //420, 550.
 		frame.setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(50, 25, 300, 50); // x, y, width, height
+		textField.setBounds(50, 35, 345, 50); // x, y, width, height.
 //		textField.setFont(myFont);
 		textField.setEditable(false); // Deixa o 'visor' estático. Letras e operações serão implementadas na tela pelo teclado numérico.
 		
@@ -35,7 +35,7 @@ public class Calculadora implements ActionListener{
 		botaoDivisao = new JButton("/");
 		botaoDecimal = new JButton(".");
 		botaoIgual = new JButton("=");
-		botaoDelete = new JButton("<-");
+		botaoDelete = new JButton("Apagar");
 		botaoLimpar = new JButton("Limpar");
 		
 		botoesFuncionais[0] = botaoSoma;
@@ -60,6 +60,17 @@ public class Calculadora implements ActionListener{
 			botoesNumericos[i].setFocusable(false);
 		}
 		
+		botaoDelete.setBounds(50,480,145,50); // x, y, width, height.
+		botaoLimpar.setBounds(250,480,145,50);
+		
+		panel = new JPanel();
+		panel.setBounds(50,100,345,365);
+		panel.setLayout(new GridLayout(4,4,10,10)); //linhas, colunas, espaçamento, espaçamento.
+		panel.setBackground(Color.gray);
+		
+		frame.add(panel);
+		frame.add(botaoDelete);
+		frame.add(botaoLimpar);
 		frame.add(textField);
 		frame.setVisible(true);
 	}
