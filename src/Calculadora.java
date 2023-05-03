@@ -8,12 +8,12 @@ public class Calculadora implements ActionListener{
 	JFrame frame;
 	JTextField textField;
 	JButton[] botoesNumericos = new JButton[10];
-	JButton[] botoesFuncionais = new JButton[8]; // pois tem oito botões.
+	JButton[] botoesFuncionais = new JButton[9]; // pois tem nove botões.
 	JButton botaoSoma,botaoSubtracao,botaoMultiplicacao,botaoDivisao;
-	JButton botaoDecimal, botaoIgual, botaoDelete, botaoLimpar;
+	JButton botaoDecimal, botaoIgual, botaoDeletar, botaoLimpar, botaoNegativo;
 	JPanel panel;
 	
-//	Font myFont = new Font("Ink Free", Font.BOLD, 30);
+	Font myFont = new Font("Lato", Font.BOLD, 30);
 	
 	double num1 = 0, num2 = 0, resultado = 0;
 	char operador;
@@ -25,8 +25,8 @@ public class Calculadora implements ActionListener{
 		frame.setLayout(null);
 		
 		textField = new JTextField();
-		textField.setBounds(50, 35, 345, 50); // x, y, width, height.
-//		textField.setFont(myFont);
+		textField.setBounds(50, 35, 300, 60); // x, y, width, height.
+		textField.setFont(myFont);
 		textField.setEditable(false); // Deixa o 'visor' estático. Letras e operações serão implementadas na tela pelo teclado numérico.
 		
 		botaoSoma = new JButton("+");
@@ -35,8 +35,9 @@ public class Calculadora implements ActionListener{
 		botaoDivisao = new JButton("/");
 		botaoDecimal = new JButton(".");
 		botaoIgual = new JButton("=");
-		botaoDelete = new JButton("Apagar");
+		botaoDeletar = new JButton("Apagar");
 		botaoLimpar = new JButton("Limpar");
+		botaoNegativo = new JButton("-/+");
 		
 		botoesFuncionais[0] = botaoSoma;
 		botoesFuncionais[1] = botaoSubtracao;
@@ -44,28 +45,30 @@ public class Calculadora implements ActionListener{
 		botoesFuncionais[3] = botaoDivisao;
 		botoesFuncionais[4] = botaoDecimal;
 		botoesFuncionais[5] = botaoIgual;
-		botoesFuncionais[6] = botaoDelete;
+		botoesFuncionais[6] = botaoDeletar;
 		botoesFuncionais[7] = botaoLimpar;
+		botoesFuncionais[8] = botaoNegativo;
 		
-		for(int i = 0; i < 8; i++) { //'i < 8' pois 8 é o tamanho do array.
+		for(int i = 0; i < 9; i++) { //'i < 9' pois 9 é o tamanho do array.
 			botoesFuncionais[i].addActionListener(this);
-//			botoesFuncionais[i].setFont(myFont);
+			botoesFuncionais[i].setFont(myFont);
 			botoesFuncionais[i].setFocusable(false); // Desabilita o contorno do botão quando ele é clicado.
 		}
 		
 		for(int i = 0; i < 10; i++) {
 			botoesNumericos[i] = new JButton(String.valueOf(i));
 			botoesNumericos[i].addActionListener(this);
-//			botoesFuncionais[i].setFont(myFont);
+			botoesNumericos[i].setFont(myFont);
 			botoesNumericos[i].setFocusable(false);
 		}
 		
-		botaoDelete.setBounds(50,480,145,50); // x, y, width, height.
-		botaoLimpar.setBounds(250,480,145,50);
+		botaoNegativo.setBounds(165,440,70,50); // x, y, width, height.
+		botaoDeletar.setBounds(50,490,145,50);
+		botaoLimpar.setBounds(205,490,145,50);
 		
 		panel = new JPanel();
-		panel.setBounds(50,100,345,365);
-		panel.setLayout(new GridLayout(4,4,10,10)); //linhas, colunas, espaçamento, espaçamento.
+		panel.setBounds(50,130,300,300);
+		panel.setLayout(new GridLayout(4,4,15,15)); //linhas, colunas, espaçamento, espaçamento.
 		//panel.setBackground(Color.gray); //para visualizar onde está esse layout.
 		panel.add(botoesNumericos[7]);
 		panel.add(botoesNumericos[8]);
@@ -85,7 +88,8 @@ public class Calculadora implements ActionListener{
 		panel.add(botaoSoma);
 		
 		frame.add(panel);
-		frame.add(botaoDelete);
+		frame.add(botaoNegativo);
+		frame.add(botaoDeletar);
 		frame.add(botaoLimpar);
 		frame.add(textField);
 		frame.setVisible(true);
@@ -97,7 +101,67 @@ public class Calculadora implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		for(int i = 0; i < 10; i++) {
+			if(e.getSource() == botoesNumericos[i]) {
+				textField.setText(textField.getText().concat(String.valueOf(i)));
+			}
+		}
+		if(e.getSource() == botaoDecimal) {
+			textField.setText(textField.getText().concat("."));
+		}
+		if(e.getSource() == botaoSoma) {
+			num1 = Double.parseDouble(textField.getText());
+			operador = '+';
+			textField.setText("");
+		}
+		if(e.getSource() == botaoSubtracao) {
+			num1 = Double.parseDouble(textField.getText());
+			operador = '-';
+			textField.setText("");
+		}
+		if(e.getSource() == botaoMultiplicacao) {
+			num1 = Double.parseDouble(textField.getText());
+			operador = '*';
+			textField.setText("");
+		}
+		if(e.getSource() == botaoDivisao) {
+			num1 = Double.parseDouble(textField.getText());
+			operador = '/';
+			textField.setText("");
+		}
+		if(e.getSource() == botaoIgual) {
+			num2 = Double.parseDouble(textField.getText());
+			switch(operador) {
+			case '+':
+				resultado = num1 + num2;
+				break;
+			case '-':
+				resultado = num1 - num2;
+				break;
+			case '*':
+				resultado = num1 * num2;
+				break;
+			case '/':
+				resultado = num1 / num2;
+				break;
+			}
+			textField.setText(String.valueOf(resultado));
+			num1 = resultado;
+		}
+		if(e.getSource() == botaoLimpar) {
+			textField.setText("");
+		}
+		if(e.getSource() == botaoDeletar) {
+			String string = textField.getText();
+			textField.setText("");
+			for(int i = 0; i < string.length()-1; i++) {
+				textField.setText(textField.getText() + string.charAt(i));
+			}
+		}
+		if(e.getSource() == botaoNegativo) {
+			double temp = Double.parseDouble(textField.getText()); //Armazena o valor temporariamente, para inverter o sinal.
+			temp *= -1;
+			textField.setText(String.valueOf(temp));
+		}
 	}
-
 }
